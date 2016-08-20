@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-
-    public float velocity;
+    
+    public float velocity; //2f
 
     public Transform ground;
 
@@ -11,9 +11,9 @@ public class Player : MonoBehaviour {
     private Rigidbody2D rb2d;
 
     private bool grounded;
-    public float force = 250;
+    public float force; //250
 
-    public float jumpDelay = 0.4f;
+    public float jumpDelay; //0.4f
     private float jumpTime;
     private bool jumped;
 
