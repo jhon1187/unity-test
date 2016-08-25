@@ -16,6 +16,9 @@ public class Player : MonoBehaviour {
     private float jumpTime;
     private bool jumped;
 
+	private Vector3 position;
+	private Vector2 angle;
+
     // Use this for initialization
     void Start () {
         animator = gameObject.GetComponent<Animator>();
@@ -28,6 +31,9 @@ public class Player : MonoBehaviour {
 
         animator.SetBool("jump", jumped);
         animator.SetBool("ground", !jumped);
+
+		position = transform.position;
+		angle = new Vector2 (transform.eulerAngles.x, transform.eulerAngles.y);
     }
 	
 	// Update is called once per frame
@@ -42,13 +48,21 @@ public class Player : MonoBehaviour {
         animator.SetBool("walk", Input.GetAxisRaw("Horizontal") != 0);
         
         if (Input.GetAxisRaw("Horizontal") > 0) {
-            transform.Translate(Vector2.right * velocity * Time.deltaTime);
-            transform.eulerAngles = new Vector2(0, 0);
+			position = transform.position;
+			position.x += velocity * Time.deltaTime;
+			transform.position = position;
+
+			angle.Set(0, 0);
+			transform.eulerAngles = angle;
         }
 
         if (Input.GetAxisRaw("Horizontal") < 0) {
-            transform.Translate(Vector2.right * velocity * Time.deltaTime);
-            transform.eulerAngles = new Vector2(0, 180);
+			position = transform.position;
+			position.x -= velocity * Time.deltaTime;
+			transform.position = position;
+
+			angle.Set(0, 180);
+			transform.eulerAngles = angle;
         }
 
         if (Input.GetButtonDown("Jump") && grounded && !jumped) {
@@ -57,7 +71,6 @@ public class Player : MonoBehaviour {
             jumped = true;
             animator.SetBool("jump", jumped);
             animator.SetBool("ground", !jumped);
-            
         }
 
         jumpTime -= Time.deltaTime;
