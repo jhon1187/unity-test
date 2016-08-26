@@ -49,7 +49,7 @@ public class Player : MonoBehaviour {
         
         if (Input.GetAxisRaw("Horizontal") > 0) {
 			position = transform.position;
-			position.x += velocity * Time.deltaTime;
+			position.x +=  Input.GetAxisRaw ("Horizontal") * velocity * Time.deltaTime;
 			transform.position = position;
 
 			angle.Set(0, 0);
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour {
 
         if (Input.GetAxisRaw("Horizontal") < 0) {
 			position = transform.position;
-			position.x -= velocity * Time.deltaTime;
+			position.x -= - Input.GetAxisRaw ("Horizontal") * velocity * Time.deltaTime;
 			transform.position = position;
 
 			angle.Set(0, 180);
